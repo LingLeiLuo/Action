@@ -8,11 +8,11 @@
  * @param InInputTag 要查找的输入标签
  * @return 找到的输入动作指针，如果未找到则返回 nullptr
  */
-UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag)
+UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
 {
 	for (const FActionInputActionConfig& InputActionConfig : NativeInputActions)
 	{
-		if (InputActionConfig.InputTag == InInputTag)
+		if (InputActionConfig.InputTag == InInputTag && InputActionConfig.InputAction)
 		{
 			return InputActionConfig.InputAction;
 		}

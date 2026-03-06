@@ -38,5 +38,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FActionInputActionConfig> NativeInputActions;
 
-	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag);
+	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 };
