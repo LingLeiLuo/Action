@@ -14,7 +14,8 @@ public class Action : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"InputCore",
-				"GameplayTags"
+				"GameplayTags",
+				"EnhancedInput"
 			}
 		);
 
