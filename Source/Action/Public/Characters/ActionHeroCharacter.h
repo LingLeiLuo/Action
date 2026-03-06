@@ -27,10 +27,10 @@ protected:
 #pragma region Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta=(AllowPrivateAccess="true"))
-	USpringArmComponent* CameraBoom;
+	USpringArmComponent* CameraBoom; // 摄像机弹簧臂组件
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta=(AllowPrivateAccess="true"))
-	UCameraComponent* FollowCamera;
+	UCameraComponent* FollowCamera; // 跟随相机
 
 #pragma endregion
 
@@ -38,7 +38,7 @@ protected:
 #pragma region Inputs
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CharacterData", meta=(AllowPrivateAccess="true"))
-	UDataAsset_InputConfig* InputConfigDataAsset;
+	UDataAsset_InputConfig* InputConfigDataAsset; // 输入配置数据资产指针，用于存储和访问输入相关的配置数据
 
 	void Input_Move(const FInputActionValue& InInputActionValue);
 	void Input_Look(const FInputActionValue& InInputActionValue);

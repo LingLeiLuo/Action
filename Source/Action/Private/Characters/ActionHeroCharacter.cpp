@@ -14,11 +14,12 @@
 #include "ActionDebugHelper.h"
 #include "ActionGameplayTags.h"
 
+
 /**
- * @brief 构造函数，初始化 ActionHeroCharacter 的默认属性和组件
+ * @brief 构造函数，初始化主角角色的默认属性和组件
  * 
- * 设置角色胶囊体大小、控制器旋转行为、摄像机臂和跟随摄像机等核心组件，
- * 并配置角色移动参数（如朝向移动方向旋转、最大行走速度等）
+ * 设置角色胶囊体大小、控制器旋转行为、摄像机弹簧臂和跟随摄像机，
+ * 以及角色移动相关的参数，包括朝向移动、旋转速率、最大行走速度和制动减速度
  */
 AActionHeroCharacter::AActionHeroCharacter()
 {

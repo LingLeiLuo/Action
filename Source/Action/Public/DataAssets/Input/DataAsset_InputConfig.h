@@ -33,10 +33,11 @@ class ACTION_API UDataAsset_InputConfig : public UDataAsset
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UInputMappingContext* InputMappingContext;
+	UInputMappingContext* InputMappingContext; // 输入映射上下文，用于定义和管理角色的输入映射配置
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-	TArray<FActionInputActionConfig> NativeInputActions;
+
+	TArray<FActionInputActionConfig> NativeInputActions; // 本地输入动作配置数组
 
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 };
