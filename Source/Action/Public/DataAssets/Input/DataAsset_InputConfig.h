@@ -21,6 +21,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UInputAction* InputAction;
+
+	bool IsValid() const
+	{
+		return InputTag.IsValid() && InputAction;
+	}
 };
 
 /**
@@ -32,12 +37,14 @@ class ACTION_API UDataAsset_InputConfig : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputMappingContext* InputMappingContext; // 输入映射上下文，用于定义和管理角色的输入映射配置
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FActionInputActionConfig> NativeInputActions; // 本地输入动作配置数组
 
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TArray<FActionInputActionConfig> AbilityInputActions; // 本地输入动作配置数组
 };

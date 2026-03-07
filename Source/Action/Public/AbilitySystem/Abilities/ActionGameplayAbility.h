@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
+#include "AbilitySystem/ActionAbilitySystemComponent.h"
 #include "ActionGameplayAbility.generated.h"
+
+class UPawnCombatComponent;
 
 UENUM(BlueprintType)
 enum class EActionGameplayAbilityActivationMode : uint8
@@ -29,4 +32,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "ActionAbility")
 	EActionGameplayAbilityActivationMode GameplayAbilityActivationMode =
 		EActionGameplayAbilityActivationMode::OnTriggered;
+
+	UFUNCTION(BlueprintPure, Category = "Action|Ability")
+	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
+
+	UFUNCTION(BlueprintPure, Category = "Action|Ability")
+	UActionAbilitySystemComponent* GetActionAbilitySystemComponentFromActorInfo() const;
 };

@@ -35,13 +35,44 @@ public:
 	template <class UserObject, typename CallbackFunc>
 	inline void BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag,
 	                                  ETriggerEvent TriggerEvent, UserObject* ContextObject,
-	                                  CallbackFunc InCallbackFunc)
-	{
-		checkf(InInputConfig, TEXT("Input Config Data Asset is null"));
+	                                  CallbackFunc InCallbackFunc);
 
-		if (UInputAction* FoundAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
-		{
-			BindAction(FoundAction, TriggerEvent, ContextObject, InCallbackFunc);
-		}
-	}
+	template <class UserObject, typename CallbackFunc>
+	inline void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject,
+	                                   CallbackFunc InputPressFunc, CallbackFunc InputReleaseFunc);
 };
+
+template <class UserObject, typename CallbackFunc>
+inline void UActionInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig,
+                                                         const FGameplayTag& InInputTag,
+                                                         ETriggerEvent TriggerEvent, UserObject* ContextObject,
+                                                         CallbackFunc InCallbackFunc)
+{
+	checkf(InInputConfig, TEXT("Input Config Data Asset is null"));
+
+	if (UInputAction* FoundAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
+	{
+		BindAction(FoundAction, TriggerEvent, ContextObject, InCallbackFunc);
+	}
+}
+
+template <class UserObject, typename CallbackFunc>
+inline void UActionInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig,
+                                                          UserObject* ContextObject,
+                                                          CallbackFunc InputPressFunc, CallbackFunc InputReleaseFunc)
+{
+	checkf(InInputConfig, TEXT("Input Config Data Asset is null"));
+
+	for (const FActionInputActionConfig& InputActionConfig : InInputConfig->AbilityInputActions)
+	{
+		if (!InputActionConfig.IsValid())
+		{
+			continue;
+		}
+
+		BindAction(InputActionConfig.InputAction, ETriggerEvent::Started, ContextObject, InputPressFunc,
+		           InputActionConfig.InputTag);
+		BindAction(InputActionConfig.InputAction, ETriggerEvent::Completed, ContextObject, InputReleaseFunc,
+		           InputActionConfig.InputTag);
+	}
+}

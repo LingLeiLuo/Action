@@ -9,17 +9,16 @@
  * 
  * 该命名空间包含用于输入系统标识的游戏标签，用于映射输入动作到游戏逻辑
  */
+
 namespace ActionGameplayTags
 {
-	/**
-	 * @brief 移动输入标签
-	 * @details 标识角色移动相关的输入动作
-	 */
-	UE_DEFINE_GAMEPLAY_TAG(InputTag_Move, "Input.Move");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Move, "InputTag.Move");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_EquipAxe, "InputTag.EquipAxe");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_UnEquipAxe, "InputTag.UnEquipAxe");
 
-	/**
-	 * @brief 视角控制标签
-	 * @details 标识角色视角旋转相关的输入动作
-	 */
-	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "Input.Look");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Axe, "Player.Weapon.Axe");
+
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Equip_Axe, "Player.Event.Equip.Axe");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_UnEquip_Axe, "Player.Event.UnEquip.Axe");
 }

@@ -4,6 +4,7 @@
 #include "AbilitySystem/Abilities/ActionGameplayAbility.h"
 
 #include "AbilitySystemComponent.h"
+#include "Components/Combat/PawnCombatComponent.h"
 
 /**
  * @brief 当能力被赋予给角色时调用
@@ -56,4 +57,14 @@ void UActionGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
 			ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
 		}
 	}
+}
+
+UPawnCombatComponent* UActionGameplayAbility::GetPawnCombatComponentFromActorInfo() const
+{
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
+}
+
+UActionAbilitySystemComponent* UActionGameplayAbility::GetActionAbilitySystemComponentFromActorInfo() const
+{
+	return Cast<UActionAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }

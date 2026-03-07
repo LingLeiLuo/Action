@@ -104,6 +104,11 @@ void AActionHeroCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	                                            ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	ActionInputComponent->BindNativeInputAction(InputConfigDataAsset, ActionGameplayTags::InputTag_Look,
 	                                            ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+
+	ActionInputComponent->BindNativeInputAction(InputConfigDataAsset, ActionGameplayTags::InputTag_Look,
+	                                            ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+	ActionInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed,
+	                                             &ThisClass::Input_AbilityInputReleased);
 }
 
 void AActionHeroCharacter::BeginPlay()
@@ -152,4 +157,14 @@ void AActionHeroCharacter::Input_Look(const FInputActionValue& InInputActionValu
 	{
 		AddControllerPitchInput(LookVector.Y);
 	}
+}
+
+void AActionHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	ActionAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AActionHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	ActionAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

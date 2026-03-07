@@ -6,6 +6,7 @@
 #include "Characters/ActionBaseCharacter.h"
 #include "ActionHeroCharacter.generated.h"
 
+struct FGameplayTag;
 class UHeroCombatComponent;
 struct FInputActionValue;
 class UDataAsset_InputConfig;
@@ -50,6 +51,9 @@ protected:
 
 	void Input_Move(const FInputActionValue& InInputActionValue);
 	void Input_Look(const FInputActionValue& InInputActionValue);
+
+	void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 #pragma endregion
 
 public:

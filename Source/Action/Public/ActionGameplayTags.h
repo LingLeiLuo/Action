@@ -13,17 +13,13 @@
  */
 namespace ActionGameplayTags
 {
-	/**
-	 * @brief 移动输入标签
-	 * 
-	 * 用于标识角色移动相关的输入动作，包括前后左右移动等基本移动操作。
-	 */
-	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Move);
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Move)
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look)
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_EquipAxe)
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_UnEquipAxe)
 
-	/**
-	 * @brief 视角控制标签
-	 * 
-	 * 用于标识视角控制相关的输入动作，包括鼠标或手柄的视角旋转操作。
-	 */
-	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look);
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Axe);
+
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Axe);
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_UnEquip_Axe);
 }
