@@ -13,6 +13,7 @@
 
 #include "ActionDebugHelper.h"
 #include "ActionGameplayTags.h"
+#include "AbilitySystem/ActionAbilitySystemComponent.h"
 
 
 /**
@@ -43,6 +44,21 @@ AActionHeroCharacter::AActionHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+}
+
+void AActionHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (ActionAbilitySystemComponent && ActionAttributeSet)
+	{
+		const FString ASCText = FString::Printf(
+			TEXT("Owner Actor: %s, Avatar Actor: %s"), *ActionAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
+			*ActionAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+
+		Debug::Print(TEXT("Ability System Component 合法.") + ASCText, FColor::Green);
+		Debug::Print(TEXT("Attribute Set 合法.") + ASCText, FColor::Green);
+	}
 }
 
 /**
@@ -81,7 +97,7 @@ void AActionHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Debug::Print(TEXT("BeginPlay"));
+	// Debug::Print(TEXT("BeginPlay"));
 }
 
 /**

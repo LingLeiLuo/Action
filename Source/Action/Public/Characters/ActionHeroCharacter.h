@@ -21,6 +21,10 @@ public:
 	AActionHeroCharacter();
 
 protected:
+	// APawn 接口 Begin
+	virtual void PossessedBy(AController* NewController) override;
+	// APawn 接口 End
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 
