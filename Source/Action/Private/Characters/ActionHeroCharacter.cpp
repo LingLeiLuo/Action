@@ -16,6 +16,7 @@
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 
 #include "ActionDebugHelper.h"
+#include "Components/Combat/HeroCombatComponent.h"
 
 
 /**
@@ -46,6 +47,8 @@ AActionHeroCharacter::AActionHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
 
 void AActionHeroCharacter::PossessedBy(AController* NewController)

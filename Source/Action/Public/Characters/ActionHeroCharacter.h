@@ -6,6 +6,7 @@
 #include "Characters/ActionBaseCharacter.h"
 #include "ActionHeroCharacter.generated.h"
 
+class UHeroCombatComponent;
 struct FInputActionValue;
 class UDataAsset_InputConfig;
 class USpringArmComponent;
@@ -36,6 +37,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta=(AllowPrivateAccess="true"))
 	UCameraComponent* FollowCamera; // 跟随相机
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat", meta=(AllowPrivateAccess="true"))
+	UHeroCombatComponent* HeroCombatComponent;
+
 #pragma endregion
 
 
@@ -47,4 +51,7 @@ protected:
 	void Input_Move(const FInputActionValue& InInputActionValue);
 	void Input_Look(const FInputActionValue& InInputActionValue);
 #pragma endregion
+
+public:
+	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }
 };
