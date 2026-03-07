@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "ActionBaseCharacter.generated.h"
 
+class UDataAsset_StartUpDataBase;
 class UActionAttributeSet;
 class UActionAbilitySystemComponent;
 
@@ -29,11 +30,14 @@ protected:
 	// APawn 接口 End
 
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="AbilitySystem")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="AbilitySystem")
 	UActionAbilitySystemComponent* ActionAbilitySystemComponent;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="AbilitySystem")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="AbilitySystem")
 	UActionAttributeSet* ActionAttributeSet;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CharacterData")
+	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
 
 public:
 	FORCEINLINE UActionAbilitySystemComponent* GetActionAbilitySystemComponent() const

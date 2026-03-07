@@ -53,5 +53,7 @@ void AActionBaseCharacter::PossessedBy(AController* NewController)
 	if (ActionAbilitySystemComponent)
 	{
 		ActionAbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+		ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("忘记为 %s 设置 CharacterStartUpData 了"), *GetName());
 	}
 }

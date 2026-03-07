@@ -11,9 +11,11 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/ActionInputComponent.h"
 
-#include "ActionDebugHelper.h"
 #include "ActionGameplayTags.h"
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
+
+#include "ActionDebugHelper.h"
 
 
 /**
@@ -50,14 +52,22 @@ void AActionHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (ActionAbilitySystemComponent && ActionAttributeSet)
-	{
-		const FString ASCText = FString::Printf(
-			TEXT("Owner Actor: %s, Avatar Actor: %s"), *ActionAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
-			*ActionAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+	// if (ActionAbilitySystemComponent && ActionAttributeSet)
+	// {
+	// 	const FString ASCText = FString::Printf(
+	// 		TEXT("Owner Actor: %s, Avatar Actor: %s"), *ActionAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
+	// 		*ActionAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+	//
+	// 	Debug::Print(TEXT("Ability System Component 合法.") + ASCText, FColor::Green);
+	// 	Debug::Print(TEXT("Attribute Set 合法.") + ASCText, FColor::Green);
+	// }
 
-		Debug::Print(TEXT("Ability System Component 合法.") + ASCText, FColor::Green);
-		Debug::Print(TEXT("Attribute Set 合法.") + ASCText, FColor::Green);
+	if (!CharacterStartUpData.IsNull())
+	{
+		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(ActionAbilitySystemComponent);
+		}
 	}
 }
 
