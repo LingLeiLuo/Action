@@ -22,4 +22,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Action|Ability", meta = (ApplyLevel = "1"))
 	void GrantHeroWeaponAbilities(const TArray<FActionHeroAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel,
 	                              TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles);
+
+	/**
+	 * @brief 移除已授予的英雄武器能力
+	 * 
+	 * 从能力系统中移除指定英雄武器的能力规范句柄对应的能力
+	 * 
+	 * @param InGrantedAbilitySpecHandlesToRemove 需要移除的能力规范句柄数组（引用传递）
+	 *
+	 **/
+	UFUNCTION(BlueprintCallable, Category = "Action|Ability")
+	void RemovedGrantedHeroWeaponAbilities(
+		UPARAM(ref)
+		TArray<FGameplayAbilitySpecHandle>& InGrantedAbilitySpecHandlesToRemove);
 };

@@ -62,3 +62,22 @@ void UActionAbilitySystemComponent::GrantHeroWeaponAbilities(
 		OutGrantedAbilitySpecHandles.AddUnique(GiveAbility(AbilitySpec));
 	}
 }
+
+void UActionAbilitySystemComponent::RemovedGrantedHeroWeaponAbilities(
+	TArray<FGameplayAbilitySpecHandle>& InGrantedAbilitySpecHandlesToRemove)
+{
+	if (InGrantedAbilitySpecHandlesToRemove.IsEmpty())
+	{
+		return;
+	}
+
+	for (const FGameplayAbilitySpecHandle& AbilitySpecHandle : InGrantedAbilitySpecHandlesToRemove)
+	{
+		if (AbilitySpecHandle.IsValid())
+		{
+			ClearAbility(AbilitySpecHandle);
+		}
+	}
+
+	InGrantedAbilitySpecHandlesToRemove.Empty();
+}

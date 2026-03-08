@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Items/Weapons/ActionWeaponBase.h"
 #include "ActionDefines/ActionStructDefines.h"
+#include "GameplayAbilitySpecHandle.h"
+
 #include "ActionHeroWeapon.generated.h"
 
 /**
@@ -18,4 +20,13 @@ class ACTION_API AActionHeroWeapon : public AActionWeaponBase
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "WeaponData")
 	FActionHeroWeaponData HeroWeaponData;
+
+	UFUNCTION(BlueprintCallable)
+	void AssignGrantedAbilitySpecHandles(TArray<FGameplayAbilitySpecHandle> InGrantedAbilitySpecHandles);
+
+	UFUNCTION(BlueprintPure)
+	TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
+
+private:
+	TArray<FGameplayAbilitySpecHandle> GrantedAbilitySpecHandles;
 };
