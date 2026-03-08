@@ -6,6 +6,7 @@
 #include "AnimInstances/ActionBaseAnimInstance.h"
 #include "ActionHeroLinkedAnimLayer.generated.h"
 
+class UActionHeroAnimInstance;
 /**
  * 
  */
@@ -13,5 +14,8 @@ UCLASS()
 class ACTION_API UActionHeroLinkedAnimLayer : public UActionBaseAnimInstance
 {
 	GENERATED_BODY()
-	
+
+public:
+	UFUNCTION(BlueprintPure, meta=(BlueprintThreadSafe))
+	UActionHeroAnimInstance* GetHeroAnimInstance() const;
 };

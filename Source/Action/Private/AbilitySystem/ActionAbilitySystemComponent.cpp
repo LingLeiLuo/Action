@@ -3,6 +3,9 @@
 
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
 
+#include "ActionDebugHelper.h"
+#include "AbilitySystem/Abilities/ActionGameplayAbility.h"
+
 /**
  * @brief 当输入标签被按下时调用，尝试激活匹配的游戏能力
  * 
@@ -22,6 +25,8 @@ void UActionAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& In
 	{
 		if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag))
 		{
+			const FString log = FString::Printf(TEXT("InInputTag %s"), *InInputTag.ToString());
+			Debug::Print(log);
 			continue;
 		}
 
@@ -31,4 +36,29 @@ void UActionAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& In
 
 void UActionAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
 {
+}
+
+void UActionAbilitySystemComponent::GrantHeroWeaponAbilities(
+	const TArray<FActionHeroAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel,
+	TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)
+{
+	if (InDefaultWeaponAbilities.IsEmpty())
+	{
+		return;
+	}
+
+	for (const FActionHeroAbilitySet& AbilitySet : InDefaultWeaponAbilities)
+	{
+		if (!AbilitySet.IsValid())
+		{
+			continue;
+		}
+
+		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
+		AbilitySpec.SourceObject = GetAvatarActor();
+		AbilitySpec.Level = ApplyLevel;
+		AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+
+		OutGrantedAbilitySpecHandles.AddUnique(GiveAbility(AbilitySpec));
+	}
 }

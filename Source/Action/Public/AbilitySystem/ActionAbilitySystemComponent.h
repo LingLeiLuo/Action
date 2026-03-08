@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "ActionDefines/ActionStructDefines.h"
 #include "ActionAbilitySystemComponent.generated.h"
 
 /**
@@ -17,4 +18,8 @@ class ACTION_API UActionAbilitySystemComponent : public UAbilitySystemComponent
 public:
 	void OnAbilityInputPressed(const FGameplayTag& InInputTag);
 	void OnAbilityInputReleased(const FGameplayTag& InInputTag);
+
+	UFUNCTION(BlueprintCallable, Category = "Action|Ability", meta = (ApplyLevel = "1"))
+	void GrantHeroWeaponAbilities(const TArray<FActionHeroAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel,
+	                              TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles);
 };
