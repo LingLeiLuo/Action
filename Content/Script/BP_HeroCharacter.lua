@@ -6,7 +6,7 @@
 -- @DATE ${date} ${time}
 --
 
----@type FeatureDevMap_C
+---@type BP_HeroCharacter_C
 local M = UnLua.Class()
 
 -- function M:Initialize(Initializer)
@@ -15,9 +15,8 @@ local M = UnLua.Class()
 -- function M:UserConstructionScript()
 -- end
 
-function M:ReceiveBeginPlay()
-    print("Hello")
-end
+-- function M:ReceiveBeginPlay()
+-- end
 
 -- function M:ReceiveEndPlay()
 -- end
