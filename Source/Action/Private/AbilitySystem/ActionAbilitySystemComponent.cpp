@@ -25,8 +25,8 @@ void UActionAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& In
 	{
 		if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag))
 		{
-			const FString log = FString::Printf(TEXT("InInputTag %s"), *InInputTag.ToString());
-			Debug::Print(log);
+			// const FString log = FString::Printf(TEXT("InInputTag %s"), *InInputTag.ToString());
+			// Debug::Print(log);
 			continue;
 		}
 
