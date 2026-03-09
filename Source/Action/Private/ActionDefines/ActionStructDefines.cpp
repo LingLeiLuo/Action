@@ -3,7 +3,7 @@
 
 #include "ActionDefines/ActionStructDefines.h"
 
-#include "AbilitySystem/Abilities/ActionGameplayAbility.h"
+#include "AbilitySystem/Abilities/ActionHeroGameplayAbility.h"
 
 bool FActionHeroAbilitySet::IsValid() const
 {
