@@ -3,3 +3,27 @@
 
 #include "DataAssets/StartUpData/DataAsset_EnemyStartUpData.h"
 
+#include "AbilitySystem/Abilities/ActionEnemyGameplayAbility.h"
+
+void UDataAsset_EnemyStartUpData::GiveToAbilitySystemComponent(UActionAbilitySystemComponent* InActionASCToGive,
+                                                               int32 ApplyLevel)
+{
+	Super::GiveToAbilitySystemComponent(InActionASCToGive, ApplyLevel);
+
+	if (!EnemyCombatAbilities.IsEmpty())
+	{
+		for (const TSubclassOf<UActionEnemyGameplayAbility>& AbilityClass : EnemyCombatAbilities)
+		{
+			if (!AbilityClass)
+			{
+				continue;
+			}
+
+			FGameplayAbilitySpec AbilitySpec(AbilityClass);
+			AbilitySpec.SourceObject = InActionASCToGive->GetAvatarActor();
+			AbilitySpec.Level = ApplyLevel;
+
+			InActionASCToGive->GiveAbility(AbilitySpec);
+		}
+	}
+}
