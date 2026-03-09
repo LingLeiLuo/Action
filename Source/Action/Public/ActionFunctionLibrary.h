@@ -25,13 +25,13 @@ public:
 	static UActionAbilitySystemComponent* NativeGetActionActionAbilitySystemComponentFromActor(AActor* InActor);
 
 	UFUNCTION(BlueprintCallable, Category = "Action|FunctionLibrary")
-	static void AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag InGameplayTag);
+	static void AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag InGameplayTagToAdd);
 
 	UFUNCTION(BlueprintCallable, Category = "Action|FunctionLibrary")
-	static void RemoveGameplayTagFromActorIfFound(AActor* InActor, FGameplayTag InGameplayTag);
+	static void RemoveGameplayTagFromActorIfFound(AActor* InActor, FGameplayTag InGameplayTagToRemove);
 
-	static bool NativeDoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTag);
+	static bool NativeDoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTagToCheck);
 
 	UFUNCTION(BlueprintCallable, Category = "Action|FunctionLibrary", meta=(DisplayName="Does Actor Have Tag", ExpandEnumAsExecs="OutConfirmType"))
-	static void K2_DoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTag, EActionConfirmType& OutConfirmType);
+	static void K2_DoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTagToCheck, EActionConfirmType& OutConfirmType);
 };

@@ -13,41 +13,41 @@ UActionAbilitySystemComponent* UActionFunctionLibrary::NativeGetActionActionAbil
 	return CastChecked<UActionAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor));
 }
 
-void UActionFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag InGameplayTag)
+void UActionFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag InGameplayTagToAdd)
 {
 	check(InActor);
-	check(InGameplayTag.IsValid());
+	check(InGameplayTagToAdd.IsValid());
 
 	UActionAbilitySystemComponent* AbilitySystemComponent = NativeGetActionActionAbilitySystemComponentFromActor(InActor);
-	if (!AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTag))
+	if (!AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTagToAdd))
 	{
-		AbilitySystemComponent->AddLooseGameplayTag(InGameplayTag);
+		AbilitySystemComponent->AddLooseGameplayTag(InGameplayTagToAdd);
 	}
 }
 
-void UActionFunctionLibrary::RemoveGameplayTagFromActorIfFound(AActor* InActor, FGameplayTag InGameplayTag)
+void UActionFunctionLibrary::RemoveGameplayTagFromActorIfFound(AActor* InActor, FGameplayTag InGameplayTagToRemove)
 {
 	check(InActor);
-	check(InGameplayTag.IsValid());
+	check(InGameplayTagToRemove.IsValid());
 
 	UActionAbilitySystemComponent* AbilitySystemComponent = NativeGetActionActionAbilitySystemComponentFromActor(InActor);
 
-	if (AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTag))
+	if (AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTagToRemove))
 	{
-		AbilitySystemComponent->RemoveLooseGameplayTag(InGameplayTag);
+		AbilitySystemComponent->RemoveLooseGameplayTag(InGameplayTagToRemove);
 	}
 }
 
-bool UActionFunctionLibrary::NativeDoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTag)
+bool UActionFunctionLibrary::NativeDoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTagToCheck)
 {
 	UActionAbilitySystemComponent* AbilitySystemComponent = NativeGetActionActionAbilitySystemComponentFromActor(InActor);
 	
-	return AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTag);
+	return AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTagToCheck);
 }
 
-void UActionFunctionLibrary::K2_DoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTag,
+void UActionFunctionLibrary::K2_DoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTagToCheck,
 	EActionConfirmType& OutConfirmType)
 {
-	OutConfirmType = NativeDoesActorHaveTag(InActor, InGameplayTag) ? EActionConfirmType::Yes : EActionConfirmType::No;
+	OutConfirmType = NativeDoesActorHaveTag(InActor, InGameplayTagToCheck) ? EActionConfirmType::Yes : EActionConfirmType::No;
 }
 
