@@ -5,12 +5,15 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
+#include "Characters/ActionBaseCharacter.h"
 
-UActionAbilitySystemComponent* UActionFunctionLibrary::NativeGetActionActionAbilitySystemComponentFromActor(AActor* InActor)
+UActionAbilitySystemComponent* UActionFunctionLibrary::NativeGetActionActionAbilitySystemComponentFromActor(
+	AActor* InActor)
 {
 	check(InActor);
 
-	return CastChecked<UActionAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor));
+	return CastChecked<UActionAbilitySystemComponent>(
+		UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor));
 }
 
 void UActionFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag InGameplayTagToAdd)
@@ -18,7 +21,8 @@ void UActionFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGamep
 	check(InActor);
 	check(InGameplayTagToAdd.IsValid());
 
-	UActionAbilitySystemComponent* AbilitySystemComponent = NativeGetActionActionAbilitySystemComponentFromActor(InActor);
+	UActionAbilitySystemComponent* AbilitySystemComponent =
+		NativeGetActionActionAbilitySystemComponentFromActor(InActor);
 	if (!AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTagToAdd))
 	{
 		AbilitySystemComponent->AddLooseGameplayTag(InGameplayTagToAdd);
@@ -30,7 +34,8 @@ void UActionFunctionLibrary::RemoveGameplayTagFromActorIfFound(AActor* InActor, 
 	check(InActor);
 	check(InGameplayTagToRemove.IsValid());
 
-	UActionAbilitySystemComponent* AbilitySystemComponent = NativeGetActionActionAbilitySystemComponentFromActor(InActor);
+	UActionAbilitySystemComponent* AbilitySystemComponent =
+		NativeGetActionActionAbilitySystemComponentFromActor(InActor);
 
 	if (AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTagToRemove))
 	{
@@ -40,14 +45,38 @@ void UActionFunctionLibrary::RemoveGameplayTagFromActorIfFound(AActor* InActor, 
 
 bool UActionFunctionLibrary::NativeDoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTagToCheck)
 {
-	UActionAbilitySystemComponent* AbilitySystemComponent = NativeGetActionActionAbilitySystemComponentFromActor(InActor);
-	
+	UActionAbilitySystemComponent* AbilitySystemComponent =
+		NativeGetActionActionAbilitySystemComponentFromActor(InActor);
+
 	return AbilitySystemComponent->HasMatchingGameplayTag(InGameplayTagToCheck);
 }
 
 void UActionFunctionLibrary::K2_DoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTagToCheck,
-	EActionConfirmType& OutConfirmType)
+                                                 EActionConfirmType& OutConfirmType)
 {
-	OutConfirmType = NativeDoesActorHaveTag(InActor, InGameplayTagToCheck) ? EActionConfirmType::Yes : EActionConfirmType::No;
+	OutConfirmType = NativeDoesActorHaveTag(InActor, InGameplayTagToCheck)
+		                 ? EActionConfirmType::Yes
+		                 : EActionConfirmType::No;
 }
 
+UPawnCombatComponent* UActionFunctionLibrary::NativeGetPawnCombatComponentFromActor(AActor* InActor)
+{
+	check(InActor);
+
+	if (IPawnCombatInterface* PawnCombatInterface = Cast<IPawnCombatInterface>(InActor))
+	{
+		return PawnCombatInterface->GetPawnCombatComponent();
+	}
+
+	return nullptr;
+}
+
+UPawnCombatComponent* UActionFunctionLibrary::K2_GetPawnCombatComponentFromActor(AActor* InActor,
+	EActionValidType& OutValidType)
+{
+	UPawnCombatComponent* CombatComponent = NativeGetPawnCombatComponentFromActor(InActor);
+
+	OutValidType = CombatComponent ? EActionValidType::Valid : EActionValidType::Invalid;
+
+	return CombatComponent;
+}

@@ -22,6 +22,10 @@ class ACTION_API AActionHeroCharacter : public AActionBaseCharacter
 public:
 	AActionHeroCharacter();
 
+	// IPawnCombatInterface 接口 Begin
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	// IPawnCombatInterface 接口 End
+
 protected:
 	// APawn 接口 Begin
 	virtual void PossessedBy(AController* NewController) override;

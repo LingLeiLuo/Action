@@ -18,6 +18,10 @@ class ACTION_API AActionEnemyCharacter : public AActionBaseCharacter
 public:
 	AActionEnemyCharacter();
 
+	// IPawnCombatInterface 接口 Begin
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	// IPawnCombatInterface 接口 End
+
 protected:
 	virtual void PossessedBy(AController* NewController) override;
 
