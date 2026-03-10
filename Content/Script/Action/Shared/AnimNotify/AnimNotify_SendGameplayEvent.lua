@@ -13,9 +13,11 @@ function M:Received_Notify(MeshComp, Animation)
     local payload = UE.FGameplayEventData()
 
     --我草了，蓝图属性默认带空格直接调不出来，还得self["  "]的形式
-    UE.UAbilitySystemBlueprintLibrary.SendGameplayEventToActor(MeshComp:GetOwner(), self["Event Tag"], payload)
-    print("Received_Notify")
-    
+    UE.UAbilitySystemBlueprintLibrary.SendGameplayEventToActor(
+            MeshComp:GetOwner(), self["Event Tag"], payload)
+
+    print("Received_Notify: " .. tostring(self["Event Tag"]))
+
     return true
 end
 
