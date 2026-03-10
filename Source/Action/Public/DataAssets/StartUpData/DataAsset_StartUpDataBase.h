@@ -6,6 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "DataAsset_StartUpDataBase.generated.h"
 
+class UGameplayEffect;
 class UActionAbilitySystemComponent;
 class UActionGameplayAbility;
 /**
@@ -31,6 +32,9 @@ protected:
 	/// @details 存储的是 UActionGameplayAbility 类或其子类的类引用，用于在特定时机重新激活这些能力
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
 	TArray<TSubclassOf<UActionGameplayAbility>> ReActivateAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
+	TArray<TSubclassOf<UGameplayEffect>> StartUpEffects;
 
 	void GrantAbilities(const TArray<TSubclassOf<UActionGameplayAbility>>& InAbilitiesToGive,
 	                    UActionAbilitySystemComponent* InActionASCToGive, int32 ApplyLevel = 1);

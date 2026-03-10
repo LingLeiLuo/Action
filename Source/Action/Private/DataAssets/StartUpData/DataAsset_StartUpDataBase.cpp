@@ -6,17 +6,12 @@
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
 #include "AbilitySystem/Abilities/ActionGameplayAbility.h"
 
+
 /**
- * @brief 将启动数据中的能力授予指定的能力系统组件
- * 
- * 此函数会遍历并授予两类能力列表：
- * - ActivateOnGivenAbilities：首次授予时激活的能力
- * - ReActivateAbilities：需要重新激活的能力
- * 
+ * @brief 将启动数据授予指定的能力系统组件
  * @param InActionASCToGive 目标能力系统组件指针，必须有效
- * @param ApplyLevel 应用能力的等级，用于确定能力的强度
- * 
- * @throws 如果 InActionASCToGive 为空指针，将触发断言失败
+ * @param ApplyLevel 应用能力的等级
+ * @note 此函数会授予激活时触发的技能、重新激活的技能，并应用所有启动效果
  */
 void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UActionAbilitySystemComponent* InActionASCToGive,
                                                               int32 ApplyLevel)
@@ -25,6 +20,20 @@ void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UActionAbilitySyst
 
 	GrantAbilities(ActivateOnGivenAbilities, InActionASCToGive, ApplyLevel);
 	GrantAbilities(ReActivateAbilities, InActionASCToGive, ApplyLevel);
+
+	if (!StartUpEffects.IsEmpty())
+	{
+		for (const TSubclassOf<UGameplayEffect>& EffectClass : StartUpEffects)
+		{
+			if (!EffectClass)
+			{
+				continue;
+			}
+
+			UGameplayEffect* EffectCDO = EffectClass->GetDefaultObject<UGameplayEffect>();
+			InActionASCToGive->ApplyGameplayEffectToSelf(EffectCDO, ApplyLevel, InActionASCToGive->MakeEffectContext());
+		}
+	}
 }
 
 /**

@@ -13,6 +13,7 @@
  */
 namespace ActionGameplayTags
 {
+	// Input
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Move)
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look)
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_EquipAxe)
@@ -20,7 +21,7 @@ namespace ActionGameplayTags
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_LightAttack_Axe)
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_HeaveyAttack_Axe)
 
-
+	// Player
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Axe);
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_UnEquip_Axe);
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light_Axe);
@@ -32,4 +33,7 @@ namespace ActionGameplayTags
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_UnEquip_Axe);
 
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher);
+
+	// Enemy
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
 }
