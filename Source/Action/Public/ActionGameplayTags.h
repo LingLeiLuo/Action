@@ -39,4 +39,6 @@ namespace ActionGameplayTags
 
 	// Shared Tag
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
+
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 }

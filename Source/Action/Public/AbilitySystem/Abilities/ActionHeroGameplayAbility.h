@@ -30,7 +30,8 @@ public:
 	UFUNCTION(BlueprintPure, Category="Action|Ability")
 	FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,
 	                                                         float InWeaponBaseDamage,
-	                                                         FGameplayTag InCurrentComboCount);
+	                                                         FGameplayTag InCurrentAttackTypeTag,
+	                                                         int32 InCurrentComboCount);
 
 private:
 	TWeakObjectPtr<AActionHeroCharacter> CachedActionHeroCharacter;
