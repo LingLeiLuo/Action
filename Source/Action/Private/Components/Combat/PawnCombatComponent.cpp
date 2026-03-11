@@ -16,6 +16,9 @@ void UPawnCombatComponent::RegisterSpawnWeapon(FGameplayTag InWeaponTagToRegiste
 
 	CharacterCarriedWeaponMap.Emplace(InWeaponTagToRegister, InWeaponToRegister);
 
+	InWeaponToRegister->Dlgt_OnWeaponHitTarget.BindUObject(this, &ThisClass::OnHitTargetActor);
+	InWeaponToRegister->Dlgt_OnWeaponPulledFromTarget.BindUObject(this, &ThisClass::OnPulledFromTargetActor);
+
 	if (bRegisterAsEquippedWeapon)
 	{
 		CurrentEquippedWeaponTag = InWeaponTagToRegister;
@@ -58,6 +61,23 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bEnable, EToggleDmgType To
 
 		check(NeedToggleWeapon);
 
-		NeedToggleWeapon->GetWeaponCollisionBox()->SetCollisionEnabled(bEnable ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+		if (bEnable)
+		{
+			NeedToggleWeapon->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		}
+		else
+		{
+			NeedToggleWeapon->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			// 当攻击结束时，缓存的碰撞接触的Actor数组清空
+			OverlappedActors.Empty();
+		}
 	}
+}
+
+void UPawnCombatComponent::OnHitTargetActor(AActor* InHitActor)
+{
+}
+
+void UPawnCombatComponent::OnPulledFromTargetActor(AActor* InInteractedActor)
+{
 }

@@ -8,6 +8,8 @@
 
 class UBoxComponent;
 
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*)
+
 UCLASS()
 class ACTION_API AActionWeaponBase : public AActor
 {
@@ -16,6 +18,9 @@ class ACTION_API AActionWeaponBase : public AActor
 public:
 	// Sets default values for this actor's properties
 	AActionWeaponBase();
+
+	FOnTargetInteractedDelegate Dlgt_OnWeaponHitTarget;
+	FOnTargetInteractedDelegate Dlgt_OnWeaponPulledFromTarget;
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapons")
