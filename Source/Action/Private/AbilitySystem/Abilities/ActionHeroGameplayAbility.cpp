@@ -28,3 +28,17 @@ UHeroCombatComponent* UActionHeroGameplayAbility::GetHeroCombatComponentFromActo
 {
 	return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
 }
+
+FGameplayEffectSpecHandle UActionHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(
+	TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentComboCount)
+{
+	check(EffectClass);
+
+	FGameplayEffectContextHandle EffectContextHandle = GetActionAbilitySystemComponentFromActorInfo()->
+		MakeEffectContext();
+	EffectContextHandle.SetAbility(this);
+	EffectContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
+	EffectContextHandle.AddInstigator(GetHeroCharacterFromActorInfo(), GetAvatarActorFromActorInfo());
+
+	GetActionAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(EffectClass, GetAbilityLevel(), );
+}
