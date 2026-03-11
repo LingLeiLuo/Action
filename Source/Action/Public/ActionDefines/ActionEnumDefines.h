@@ -13,3 +13,11 @@ enum class EActionValidType : uint8
 	Valid,
 	Invalid
 };
+
+UENUM()
+enum class EToggleDmgType : uint8
+{
+	CurrentEquippedWeapon,
+	LeftHand,
+	RightHand
+};

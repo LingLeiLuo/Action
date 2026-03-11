@@ -4,6 +4,7 @@
 #include "Components/Combat/PawnCombatComponent.h"
 
 #include "ActionDebugHelper.h"
+#include "Components/BoxComponent.h"
 #include "Items/Weapons/ActionWeaponBase.h"
 
 void UPawnCombatComponent::RegisterSpawnWeapon(FGameplayTag InWeaponTagToRegister,
@@ -47,4 +48,16 @@ AActionWeaponBase* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() con
 	}
 
 	return GetCharacterCarriedWeaponByTag(CurrentEquippedWeaponTag);
+}
+
+void UPawnCombatComponent::ToggleWeaponCollision(bool bEnable, EToggleDmgType ToggleDmgType)
+{
+	if (ToggleDmgType == EToggleDmgType::CurrentEquippedWeapon)
+	{
+		AActionWeaponBase* NeedToggleWeapon = GetCharacterCurrentEquippedWeapon();
+
+		check(NeedToggleWeapon);
+
+		NeedToggleWeapon->GetWeaponCollisionBox()->SetCollisionEnabled(bEnable ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+	}
 }

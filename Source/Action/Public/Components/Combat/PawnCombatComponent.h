@@ -5,9 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "Components/PawnExtensionComponentBase.h"
+
+
+#include "ActionDefines/ActionEnumDefines.h"
 #include "PawnCombatComponent.generated.h"
 
 class AActionWeaponBase;
+
 /**
  * 
  */
@@ -29,6 +33,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Action|Combat")
 	AActionWeaponBase* GetCharacterCurrentEquippedWeapon() const;
+
+	UFUNCTION(BlueprintCallable, Category="Action|Combat")
+	void ToggleWeaponCollision(bool bEnable, EToggleDmgType ToggleDmgType = EToggleDmgType::CurrentEquippedWeapon);
 
 private:
 	TMap<FGameplayTag, AActionWeaponBase*> CharacterCarriedWeaponMap;
