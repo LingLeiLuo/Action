@@ -21,3 +21,10 @@ enum class EToggleDmgType : uint8
 	LeftHand,
 	RightHand
 };
+
+UENUM()
+enum class EActionSuccessType : uint8
+{
+	Success,
+	Failed
+};

@@ -31,7 +31,7 @@ public:
 	FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,
 	                                                         float InWeaponBaseDamage,
 	                                                         FGameplayTag InCurrentAttackTypeTag,
-	                                                         int32 InCurrentComboCount);
+	                                                         int32 InUsedComboCount);
 
 private:
 	TWeakObjectPtr<AActionHeroCharacter> CachedActionHeroCharacter;

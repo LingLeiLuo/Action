@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
+#include "ActionDefines/ActionEnumDefines.h"
 #include "ActionGameplayAbility.generated.h"
 
 class UPawnCombatComponent;
@@ -38,4 +39,15 @@ protected:
 
 	UFUNCTION(BlueprintPure, Category = "Action|Ability")
 	UActionAbilitySystemComponent* GetActionAbilitySystemComponentFromActorInfo() const;
+
+	FActiveGameplayEffectHandle NativeApplyEffectSpecHandleToTarget(AActor* TargetActor,
+	                                                                const FGameplayEffectSpecHandle&
+	                                                                InEffectSpecHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "Action|Ability",
+		meta=(DisplayName = "Apply Effect Spec Handle To Target", ExpandEnumAsExecs="OutSuccessType"))
+	FActiveGameplayEffectHandle K2_ApplyEffectSpecHandleToTarget(AActor* TargetActor,
+	                                                             const FGameplayEffectSpecHandle&
+	                                                             InEffectSpecHandle,
+	                                                             EActionSuccessType& OutSuccessType);
 };

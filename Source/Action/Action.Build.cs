@@ -16,7 +16,8 @@ public class Action : ModuleRules
 				"InputCore",
 				"GameplayTags",
 				"EnhancedInput",
-				"GameplayTasks"
+				"GameplayTasks",
+				"GameplayAbilities"
 			}
 		);
 
