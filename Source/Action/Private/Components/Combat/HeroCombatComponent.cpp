@@ -38,8 +38,13 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* InHitActor)
 	// OverlappedActors
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(), ActionGameplayTags::Shared_Event_MeleeHit,
 	                                                         EventData);
+
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(), ActionGameplayTags::Player_Event_HitPause,
+	                                                         FGameplayEventData());
 }
 
 void UHeroCombatComponent::OnPulledFromTargetActor(AActor* InInteractedActor)
 {
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(), ActionGameplayTags::Player_Event_HitPause,
+	                                                         FGameplayEventData());
 }

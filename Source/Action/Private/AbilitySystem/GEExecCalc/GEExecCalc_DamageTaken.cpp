@@ -46,6 +46,7 @@ UGEExecCalc_DamageTaken::UGEExecCalc_DamageTaken()
 
 	RelevantAttributesToCapture.Add(GetActionDamageCapture().AttackPowerDef);
 	RelevantAttributesToCapture.Add(GetActionDamageCapture().DefensePowerDef);
+	RelevantAttributesToCapture.Add(GetActionDamageCapture().DamageTakenDef);
 }
 
 void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
@@ -64,7 +65,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 	float SourceAttackPower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetActionDamageCapture().AttackPowerDef,
 	                                                           EvaluateParameters, SourceAttackPower);
-	Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower);
+	// Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower);
 
 	float BaseDamage = 0.f;
 	int32 UsedLightAttackComboCount = 0;
@@ -75,26 +76,26 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 		if (TagMagnitudePair.Key.MatchesTagExact(ActionGameplayTags::Shared_SetByCaller_BaseDamage))
 		{
 			BaseDamage = TagMagnitudePair.Value;
-			Debug::Print(TEXT("BaseDamage"), BaseDamage);
+			// Debug::Print(TEXT("BaseDamage"), BaseDamage);
 		}
 
 		if (TagMagnitudePair.Key.MatchesTagExact(ActionGameplayTags::Player_SetByCaller_AttackType_Light))
 		{
 			UsedLightAttackComboCount = TagMagnitudePair.Value;
-			Debug::Print(TEXT("UsedLightAttackComboCount"), UsedLightAttackComboCount);
+			// Debug::Print(TEXT("UsedLightAttackComboCount"), UsedLightAttackComboCount);
 		}
 
 		if (TagMagnitudePair.Key.MatchesTagExact(ActionGameplayTags::Player_SetByCaller_AttackType_Heavy))
 		{
 			UsedHeavyAttackComboCount = TagMagnitudePair.Value;
-			Debug::Print(TEXT("UsedHeavyAttackComboCount"), UsedHeavyAttackComboCount);
+			// Debug::Print(TEXT("UsedHeavyAttackComboCount"), UsedHeavyAttackComboCount);
 		}
 	}
 
 	float TargetDefensePower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetActionDamageCapture().DefensePowerDef,
 	                                                           EvaluateParameters, TargetDefensePower);
-	Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower);
+	// Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower);
 
 	if (UsedLightAttackComboCount != 0)
 	{
@@ -102,20 +103,20 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 
 		BaseDamage *= DamageIncreasePercentLight;
 
-		Debug::Print(TEXT("ScaledBaseDamageLight"), BaseDamage);
+		// Debug::Print(TEXT("ScaledBaseDamageLight"), BaseDamage);
 	}
 
 	if (UsedHeavyAttackComboCount != 0)
 	{
-		const float DamageIncreasePercentHeavy = (UsedHeavyAttackComboCount - 1) * 0.15 + 1.f;
+		const float DamageIncreasePercentHeavy = UsedHeavyAttackComboCount * 0.15 + 1.f;
 
 		BaseDamage *= DamageIncreasePercentHeavy;
 
-		Debug::Print(TEXT("ScaledBaseDamageHeavy"), BaseDamage);
+		// Debug::Print(TEXT("ScaledBaseDamageHeavy"), BaseDamage);
 	}
 
 	const float FinalDamage = BaseDamage * SourceAttackPower / TargetDefensePower;
-	Debug::Print(TEXT("FinalDamage"), FinalDamage);
+	// Debug::Print(TEXT("FinalDamage"), FinalDamage);
 
 	if (FinalDamage > 0.f)
 	{
