@@ -75,7 +75,7 @@ void UActionAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 		//TODO: Notify the UI
 		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 		
-		if (NewCurrentHealth == 0.f)
+		if (GetCurrentHealth() == 0.f)
 		{
 			UActionFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), ActionGameplayTags::Shared_Status_Dead);
 		}
