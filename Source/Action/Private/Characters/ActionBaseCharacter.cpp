@@ -43,6 +43,11 @@ UPawnCombatComponent* AActionBaseCharacter::GetPawnCombatComponent() const
 	return nullptr;
 }
 
+UPawnUIComponent* AActionBaseCharacter::GetPawnUIComponent() const
+{
+	return nullptr;
+}
+
 /**
  * @brief 当角色被控制器控制时调用
  * 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/ActionBaseCharacter.h"
+#include "Components/UI/HeroUIComponent.h"
 #include "ActionHeroCharacter.generated.h"
 
 struct FGameplayTag;
@@ -26,6 +27,10 @@ public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	// IPawnCombatInterface 接口 End
 
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UHeroUIComponent* GetHeroUIComponent() const override;
+	
+
 protected:
 	// APawn 接口 Begin
 	virtual void PossessedBy(AController* NewController) override;
@@ -44,6 +49,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat", meta=(AllowPrivateAccess="true"))
 	UHeroCombatComponent* HeroCombatComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI", meta=(AllowPrivateAccess="true"))
+	UHeroUIComponent* HeroUIComponent;
 
 #pragma endregion
 

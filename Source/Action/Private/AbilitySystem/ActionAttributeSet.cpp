@@ -5,6 +5,11 @@
 #include "GameplayEffectExtension.h"
 
 #include "ActionDebugHelper.h"
+#include "ActionFunctionLibrary.h"
+#include "ActionGameplayTags.h"
+#include "Components/UI/HeroUIComponent.h"
+#include "Components/UI/PawnUIComponent.h"
+#include "Interfaces/PawnUIInterface.h"
 
 UActionAttributeSet::UActionAttributeSet()
 {
@@ -18,17 +23,35 @@ UActionAttributeSet::UActionAttributeSet()
 
 void UActionAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
+	if (!CachedPawnUIInterface.IsValid())
+	{
+		CachedPawnUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
+	}
+	
+	checkf(CachedPawnUIInterface.IsValid(), TEXT("CachedPawnUIInterface is not valid"));
+
+	UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
+
+	checkf(PawnUIComponent, TEXT("PawnUIComponent is null"));
+	
 	// 当某个GameEffect修改属性时，其修改的是生命值，则进行操作
 	if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute())
 	{
 		const float NewCurrentHealth = FMath::Clamp(GetCurrentHealth(), 0.f, GetMaxHealth());
 		SetCurrentHealth(NewCurrentHealth);
+
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 	}
 
 	if (Data.EvaluatedData.Attribute == GetCurrentEnergyAttribute())
 	{
 		const float NewCurrentEnergy = FMath::Clamp(GetCurrentEnergy(), 0.f, GetMaxEnergy());
 		SetCurrentEnergy(NewCurrentEnergy);
+
+		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		{
+			HeroUIComponent->OnCurrentEnergyChanged.Broadcast(GetCurrentEnergy() / GetMaxEnergy());
+		}
 	}
 
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
@@ -50,10 +73,11 @@ void UActionAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 		Debug::Print(DebugString, FColor::Green);
 
 		//TODO: Notify the UI
-
-		//TODO: Death
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
+		
 		if (NewCurrentHealth == 0.f)
 		{
+			UActionFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), ActionGameplayTags::Shared_Status_Dead);
 		}
 	}
 }

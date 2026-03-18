@@ -24,11 +24,17 @@ AActionEnemyCharacter::AActionEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.0f;
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>("EnemyCombatComponent");
+	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>("EnemyUIComponent");
 }
 
 UPawnCombatComponent* AActionEnemyCharacter::GetPawnCombatComponent() const
 {
 	return EnemyCombatComponent;
+}
+
+UPawnUIComponent* AActionEnemyCharacter::GetPawnUIComponent() const
+{
+	return EnemyUIComponent;
 }
 
 void AActionEnemyCharacter::PossessedBy(AController* NewController)

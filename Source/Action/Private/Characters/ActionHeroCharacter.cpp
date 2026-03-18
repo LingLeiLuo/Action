@@ -49,11 +49,22 @@ AActionHeroCharacter::AActionHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
+	HeroUIComponent = CreateDefaultSubobject<UHeroUIComponent>(TEXT("HeroUIComponent"));
 }
 
 UPawnCombatComponent* AActionHeroCharacter::GetPawnCombatComponent() const
 {
 	return HeroCombatComponent;
+}
+
+UPawnUIComponent* AActionHeroCharacter::GetPawnUIComponent() const
+{
+	return HeroUIComponent;
+}
+
+UHeroUIComponent* AActionHeroCharacter::GetHeroUIComponent() const
+{
+	return HeroUIComponent;
 }
 
 void AActionHeroCharacter::PossessedBy(AController* NewController)

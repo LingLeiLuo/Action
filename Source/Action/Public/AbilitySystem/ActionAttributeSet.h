@@ -23,6 +23,7 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+class IPawnUIInterface;
 /**
  * 
  */
@@ -63,4 +64,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UActionAttributeSet, DamageTaken)
 
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+
+private:
+	TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface;
 };

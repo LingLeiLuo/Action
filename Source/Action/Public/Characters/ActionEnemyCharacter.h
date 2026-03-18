@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/ActionBaseCharacter.h"
+#include "Components/UI/EnemyUIComponent.h"
 #include "ActionEnemyCharacter.generated.h"
 
 class UEnemyCombatComponent;
@@ -22,11 +23,16 @@ public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	// IPawnCombatInterface 接口 End
 
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+
 protected:
 	virtual void PossessedBy(AController* NewController) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
 	UEnemyCombatComponent* EnemyCombatComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UEnemyUIComponent* EnemyUIComponent;
 
 private:
 	void InitEnemyStartUpData();
