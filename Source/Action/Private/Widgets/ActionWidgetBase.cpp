@@ -19,3 +19,15 @@ void UActionWidgetBase::NativeOnInitialized()
 	
 	
 }
+
+void UActionWidgetBase::InitEnemyCreatedWidget(AActor* OwningEnemyActor)
+{
+	if (IPawnUIInterface* PawnUIInterface = Cast<IPawnUIInterface>(OwningEnemyActor))
+	{
+		UEnemyUIComponent* EnemyUIComponent = PawnUIInterface->GetEnemyUIComponent();
+
+		checkf(EnemyUIComponent, TEXT("EnemyUIComponent is null"));
+
+		BP_OnOwningEnemyUIComponentInitialized(EnemyUIComponent);
+	}
+}

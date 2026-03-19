@@ -17,7 +17,8 @@ public class Action : ModuleRules
 				"GameplayTags",
 				"EnhancedInput",
 				"GameplayTasks",
-				"GameplayAbilities"
+				"GameplayAbilities", 
+				"AIModule"
 			}
 		);
 
