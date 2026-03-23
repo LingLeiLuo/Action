@@ -19,6 +19,9 @@ class ACTION_API AActionAIController : public AAIController
 public:
 	AActionAIController(const FObjectInitializer& ObjectInitializer);
 
+	virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
+	
+	
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UAIPerceptionComponent* EnemyPerceptionComponent;
