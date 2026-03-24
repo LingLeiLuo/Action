@@ -18,7 +18,7 @@ class ACTION_API AActionHeroController : public APlayerController, public IGener
 public:
 	AActionHeroController();
 	
-	virtual FGenericTeamId GetGenericTeamId() const;
+	virtual FGenericTeamId GetGenericTeamId() const override;
 
 private:
 	FGenericTeamId TeamId;

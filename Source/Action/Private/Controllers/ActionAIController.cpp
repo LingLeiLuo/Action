@@ -4,16 +4,12 @@
 #include "Controllers/ActionAIController.h"
 
 #include "ActionDebugHelper.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Navigation/CrowdFollowingComponent.h"
 
 AActionAIController::AActionAIController(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>("PathFollowingComponent"))
 {
-	if (UCrowdFollowingComponent* CrowdComponent = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
-	{
-		Debug::Print(TEXT("CrowdComponent is valid"));
-	}
-
 	AISenseConfig_Sight = CreateDefaultSubobject<UAISenseConfig_Sight>("EnemySenseConfig_Sight");
 	AISenseConfig_Sight->DetectionByAffiliation.bDetectEnemies = true;
 	AISenseConfig_Sight->DetectionByAffiliation.bDetectFriendlies = false;
@@ -36,7 +32,7 @@ ETeamAttitude::Type AActionAIController::GetTeamAttitudeTowards(const AActor& Ot
 
 	const IGenericTeamAgentInterface* OtherTeamAgent = Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
 
-	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() != GetGenericTeamId())
+	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId())
 	{
 		return ETeamAttitude::Hostile;
 	}
@@ -44,10 +40,40 @@ ETeamAttitude::Type AActionAIController::GetTeamAttitudeTowards(const AActor& Ot
 	return ETeamAttitude::Friendly;
 }
 
+void AActionAIController::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	if (UCrowdFollowingComponent* CrowdComponent = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
+	{
+		CrowdComponent->SetCrowdSimulationState(bEnableDetourCrowdAvoidance? ECrowdSimulationState::Enabled : ECrowdSimulationState::Disabled);
+
+		switch (DetourCrowdAvoidanceQuality)
+		{
+		case 1: CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);		break;
+		case 2: CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);	break;
+		case 3: CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);		break;
+		case 4: CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);		break;
+		default:
+			break;
+		}
+
+		CrowdComponent->SetAvoidanceGroup(1);
+		CrowdComponent->SetGroupsToAvoid(1);
+		CrowdComponent->SetCrowdCollisionQueryRange(CollisionQueryRange);
+	}
+}
+
 void AActionAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-	if (Stimulus.WasSuccessfullySensed() && Actor)
+	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 	{
-		Debug::Print(Actor -> GetActorLabel());
+		if (!BlackboardComponent->GetValueAsObject(FName("TargetActor")))
+		{
+			if (Stimulus.WasSuccessfullySensed() && Actor)
+			{
+				BlackboardComponent->SetValueAsObject(TEXT("TargetActor"), Actor);
+			}
+		}
 	}
 }
