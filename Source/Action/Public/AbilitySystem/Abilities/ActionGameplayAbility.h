@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
-#include "AbilitySystem/ActionAbilitySystemComponent.h"
 #include "ActionDefines/ActionEnumDefines.h"
 #include "ActionGameplayAbility.generated.h"
 
 class UPawnCombatComponent;
+class UActionAbilitySystemComponent;
 
 UENUM(BlueprintType)
 enum class EActionGameplayAbilityActivationMode : uint8

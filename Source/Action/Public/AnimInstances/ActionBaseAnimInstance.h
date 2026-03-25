@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "Animation/AnimInstance.h"
 #include "ActionBaseAnimInstance.generated.h"
 
@@ -13,5 +14,8 @@ UCLASS()
 class ACTION_API UActionBaseAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
-	
+
+protected:
+	UFUNCTION(BlueprintPure, meta=(BlueprintThreadSafe))
+	bool DoesOwnerHaveTag(FGameplayTag InTag) const;
 };

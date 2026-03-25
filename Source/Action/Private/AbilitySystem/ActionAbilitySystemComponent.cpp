@@ -4,7 +4,7 @@
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
 
 #include "ActionDebugHelper.h"
-#include "AbilitySystem/Abilities/ActionGameplayAbility.h"
+#include "AbilitySystem/Abilities/ActionHeroGameplayAbility.h"
 
 /**
  * @brief 当输入标签被按下时调用，尝试激活匹配的游戏能力
@@ -80,4 +80,25 @@ void UActionAbilitySystemComponent::RemovedGrantedHeroWeaponAbilities(
 	}
 
 	InGrantedAbilitySpecHandlesToRemove.Empty();
+}
+
+bool UActionAbilitySystemComponent::TryActivateAbilityByTag(FGameplayTag InAbilityTag)
+{
+	check(InAbilityTag.IsValid());
+	TArray<FGameplayAbilitySpec*> FoundAbilitySpecs;
+	GetActivatableGameplayAbilitySpecsByAllMatchingTags(InAbilityTag.GetSingleTagContainer(), FoundAbilitySpecs);
+
+	if (!FoundAbilitySpecs.IsEmpty())
+	{
+		const int32 RandomAbilityIndex = FMath::RandRange(0, FoundAbilitySpecs.Num() - 1);
+		FGameplayAbilitySpec* AbilitySpecToActivate = FoundAbilitySpecs[RandomAbilityIndex];
+
+		check(AbilitySpecToActivate);
+		if (!AbilitySpecToActivate->IsActive())
+		{
+			return TryActivateAbility(AbilitySpecToActivate->Handle);
+		}
+	}
+
+	return false;
 }

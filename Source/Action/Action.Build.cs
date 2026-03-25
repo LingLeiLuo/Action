@@ -18,7 +18,8 @@ public class Action : ModuleRules
 				"EnhancedInput",
 				"GameplayTasks",
 				"GameplayAbilities", 
-				"AIModule"
+				"AIModule",
+				"AnimGraphRuntime"
 			}
 		);
 

@@ -35,4 +35,7 @@ public:
 	void RemovedGrantedHeroWeaponAbilities(
 		UPARAM(ref)
 		TArray<FGameplayAbilitySpecHandle>& InGrantedAbilitySpecHandlesToRemove);
+
+	UFUNCTION(BlueprintCallable, Category = "Action|Ability")
+	bool TryActivateAbilityByTag(FGameplayTag InAbilityTag);
 };

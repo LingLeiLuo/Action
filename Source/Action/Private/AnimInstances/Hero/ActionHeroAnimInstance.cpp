@@ -9,9 +9,9 @@ void UActionHeroAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
 
-	if (OwingCharacter)
+	if (OwningCharacter)
 	{
-		OwingHeroCharacter = Cast<AActionHeroCharacter>(OwingCharacter);
+		OwingHeroCharacter = Cast<AActionHeroCharacter>(OwningCharacter);
 	}
 }
 

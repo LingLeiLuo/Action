@@ -5,6 +5,7 @@
 
 #include "Characters/ActionBaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "KismetAnimationLibrary.h"
 
 
 /**
@@ -17,11 +18,11 @@
  */
 void UActionCharacterAnimInstance::NativeInitializeAnimation()
 {
-	OwingCharacter = Cast<AActionBaseCharacter>(TryGetPawnOwner());
+	OwningCharacter = Cast<AActionBaseCharacter>(TryGetPawnOwner());
 
-	if (OwingCharacter)
+	if (OwningCharacter)
 	{
-		OwingCharacterMovementComponent = OwingCharacter->GetCharacterMovement();
+		OwingCharacterMovementComponent = OwningCharacter->GetCharacterMovement();
 	}
 }
 
@@ -39,12 +40,14 @@ void UActionCharacterAnimInstance::NativeInitializeAnimation()
  */
 void UActionCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 {
-	if (!OwingCharacter || !OwingCharacterMovementComponent)
+	if (!OwningCharacter || !OwingCharacterMovementComponent)
 	{
 		return;
 	}
 
-	GroundSpeed = OwingCharacter->GetVelocity().Size2D();
+	GroundSpeed = OwningCharacter->GetVelocity().Size2D();
 
 	bHasAcceleration = OwingCharacterMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.f;
+
+	LocomotionDirection = UKismetAnimationLibrary::CalculateDirection(OwningCharacter->GetVelocity(), OwningCharacter->GetActorRotation()); 
 }

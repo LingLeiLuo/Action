@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Abilities/ActionGameplayAbility.h"
 
+#include "AbilitySystem/ActionAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "Components/Combat/PawnCombatComponent.h"

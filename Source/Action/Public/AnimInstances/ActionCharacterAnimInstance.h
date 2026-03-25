@@ -22,7 +22,7 @@ public:
 
 protected:
 	UPROPERTY()
-	AActionBaseCharacter* OwingCharacter;
+	AActionBaseCharacter* OwningCharacter;
 
 	UPROPERTY()
 	UCharacterMovementComponent* OwingCharacterMovementComponent;
@@ -32,4 +32,7 @@ protected:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
 	bool bHasAcceleration;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
+	float LocomotionDirection;
 };
