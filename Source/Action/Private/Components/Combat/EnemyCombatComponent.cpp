@@ -3,13 +3,44 @@
 
 #include "Components/Combat/EnemyCombatComponent.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "ActionDebugHelper.h"
+#include "ActionGameplayTags.h"
 
 void UEnemyCombatComponent::OnHitTargetActor(AActor* InHitActor)
 {
-	if (InHitActor)
+	if (OverlappedActors.Contains(InHitActor))
 	{
-		Debug::Print("Solis ");
+		return;
 	}
-	
+
+	OverlappedActors.AddUnique(InHitActor);
+
+	bool bIsValidBlock = false;
+
+	const bool bIsPlayerBlocking = false;
+	const bool bIsMyAttackUnblockable = false;
+
+
+	if (bIsPlayerBlocking && !bIsMyAttackUnblockable)
+	{
+		
+	}
+
+	FGameplayEventData EventData;
+	EventData.Instigator = GetOwningPawn();
+	EventData.Target = InHitActor;
+
+	if (bIsValidBlock)
+	{
+		
+	}
+	else
+	{
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+			GetOwningPawn(),
+			ActionGameplayTags::Shared_Event_MeleeHit,
+			EventData
+		);
+	}
 }
