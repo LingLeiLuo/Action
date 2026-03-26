@@ -4,6 +4,7 @@
 #include "ActionFunctionLibrary.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
+#include "GenericTeamAgentInterface.h"
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
 #include "Characters/ActionBaseCharacter.h"
 
@@ -146,4 +147,19 @@ UPawnCombatComponent* UActionFunctionLibrary::K2_GetPawnCombatComponentFromActor
 	OutValidType = CombatComponent ? EActionValidType::Valid : EActionValidType::Invalid;
 
 	return CombatComponent;
+}
+
+bool UActionFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* TargetPawn)
+{
+	check(QueryPawn && TargetPawn);
+	
+	IGenericTeamAgentInterface* QueryTeamAgent = Cast<IGenericTeamAgentInterface>(QueryPawn->GetController());
+	IGenericTeamAgentInterface* TargetQueryTeamAgent = Cast<IGenericTeamAgentInterface>(TargetPawn->GetController());
+
+	if (QueryTeamAgent && TargetQueryTeamAgent)
+	{
+		return QueryTeamAgent->GetGenericTeamId() != TargetQueryTeamAgent->GetGenericTeamId();
+	}
+	
+	return false;
 }

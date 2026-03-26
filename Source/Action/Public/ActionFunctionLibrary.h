@@ -38,4 +38,7 @@ public:
 		meta=(DisplayName="Get Pawn Combat Component From Actor", ExpandEnumAsExecs="OutValidType"))
 	static UPawnCombatComponent*
 	K2_GetPawnCombatComponentFromActor(AActor* InActor, EActionValidType& OutValidType);
+
+	UFUNCTION(BlueprintPure, Category = "Action|FunctionLibrary")
+	static bool IsTargetPawnHostile(APawn* QueryPawn, APawn* TargetPawn);
 };

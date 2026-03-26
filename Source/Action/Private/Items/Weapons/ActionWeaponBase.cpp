@@ -4,6 +4,7 @@
 #include "Items/Weapons/ActionWeaponBase.h"
 
 #include "ActionDebugHelper.h"
+#include "ActionFunctionLibrary.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -33,7 +34,7 @@ void AActionWeaponBase::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overlapp
 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UActionFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			Dlgt_OnWeaponHitTarget.ExecuteIfBound(OtherActor);
 		}
@@ -49,7 +50,7 @@ void AActionWeaponBase::OnCollisionBoxEndOverlap(UPrimitiveComponent* Overlapped
 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UActionFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			Dlgt_OnWeaponPulledFromTarget.ExecuteIfBound(OtherActor);
 		}

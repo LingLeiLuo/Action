@@ -3,3 +3,13 @@
 
 #include "Components/Combat/EnemyCombatComponent.h"
 
+#include "ActionDebugHelper.h"
+
+void UEnemyCombatComponent::OnHitTargetActor(AActor* InHitActor)
+{
+	if (InHitActor)
+	{
+		Debug::Print("Solis ");
+	}
+	
+}
