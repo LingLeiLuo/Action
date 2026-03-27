@@ -12,6 +12,7 @@
 class UDataAsset_StartUpDataBase;
 class UActionAttributeSet;
 class UActionAbilitySystemComponent;
+class UMotionWarpingComponent;
 
 UCLASS()
 class ACTION_API AActionBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface, public IPawnUIInterface
@@ -43,9 +44,13 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="AbilitySystem")
 	UActionAttributeSet* ActionAttributeSet;
-
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="MotionWarping")
+	UMotionWarpingComponent* MotionWarpingComponent;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="CharacterData")
 	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
+	
 
 public:
 	FORCEINLINE UActionAbilitySystemComponent* GetActionAbilitySystemComponent() const

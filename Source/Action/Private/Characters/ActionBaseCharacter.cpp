@@ -4,6 +4,7 @@
 #include "Characters/ActionBaseCharacter.h"
 #include "AbilitySystem/ActionAbilitySystemComponent.h"
 #include "AbilitySystem/ActionAttributeSet.h"
+#include "MotionWarpingComponent.h"
 
 /**
  * @brief 构造函数
@@ -24,6 +25,8 @@ AActionBaseCharacter::AActionBaseCharacter()
 		TEXT("ActionAbilitySystemComponent"));
 
 	ActionAttributeSet = CreateDefaultSubobject<UActionAttributeSet>(TEXT("ActionAttributeSet"));
+
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 /**

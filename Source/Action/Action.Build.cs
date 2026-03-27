@@ -19,7 +19,8 @@ public class Action : ModuleRules
 				"GameplayTasks",
 				"GameplayAbilities", 
 				"AIModule",
-				"AnimGraphRuntime"
+				"AnimGraphRuntime",
+				"MotionWarping"
 			}
 		);
 

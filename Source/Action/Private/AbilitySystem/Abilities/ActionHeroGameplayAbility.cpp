@@ -4,6 +4,7 @@
 #include "AbilitySystem/Abilities/ActionHeroGameplayAbility.h"
 
 #include "ActionGameplayTags.h"
+#include "AbilitySystem/ActionAbilitySystemComponent.h"
 #include "Characters/ActionHeroCharacter.h"
 #include "Controllers/ActionHeroController.h"
 
@@ -40,7 +41,7 @@ FGameplayEffectSpecHandle UActionHeroGameplayAbility::MakeHeroDamageEffectSpecHa
 		MakeEffectContext();
 	EffectContextHandle.SetAbility(this);
 	EffectContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
-	EffectContextHandle.AddInstigator(GetHeroCharacterFromActorInfo(), GetAvatarActorFromActorInfo());
+	EffectContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo());
 
 	FGameplayEffectSpecHandle EffectSpecHandle = GetActionAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(
 		EffectClass, GetAbilityLevel(),
