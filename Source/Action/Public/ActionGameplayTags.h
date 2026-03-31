@@ -46,6 +46,8 @@ namespace ActionGameplayTags
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
 
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
+	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_UnderAttack);
+	
 
 	// Shared Tag
 	ACTION_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_HitReact);
